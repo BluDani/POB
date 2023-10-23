@@ -1,16 +1,11 @@
-package av1;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
-    
-    public static void main(String[] args){
 
-        ArrayList<Produto> produtos = new ArrayList();
+  public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
-        system.out.println("1 - Adicionar produto");
-        system.out.println("2 - Listar produto");
-        system.out.println("3 - Adicionar no carrinho");
-        
-    }
+    Menu menu = new Menu();
+    menu.processamento();
+  }
 }

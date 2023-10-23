@@ -2,9 +2,9 @@ public class Produto{
 
     private int id;
     private String nome;
-    private float valor;
+    private double valor;
 
-    public Produto(int id, String nome, float valor){
+    public Produto(int id, String nome, double valor){
 
         super();
 
@@ -29,11 +29,11 @@ public class Produto{
         this.nome = nome;
     }
 
-    public float getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 }
