@@ -14,26 +14,26 @@ public class Produto{
     }
 
     public int getId() {
-        return id;
+      return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+      this.id = id;
     }
 
     public String getNome() {
-        return nome;
+      return nome;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+      this.nome = nome;
     }
 
     public double getValor() {
-        return valor;
+      return valor;
     }
 
     public void setValor(double valor) {
-        this.valor = valor;
+      this.valor = valor;
     }
 }

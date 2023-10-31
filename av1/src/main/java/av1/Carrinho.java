@@ -9,8 +9,8 @@ public class Carrinho {
 
   public Boolean incluirCarrinho(ArrayList<Produto> produtos){
 
-    int id;
-    int quant;
+    int id, aux = 0;
+    int quant, auxQuant;
     double subTotal;
 
     Scanner sc = new Scanner(System.in);
@@ -25,15 +25,30 @@ public class Carrinho {
 
       if(id == i.getId()){
 
-        subTotal = i.getValor() * quant;
-        
-        ItensCar item = new ItensCar(id, quant, subTotal);
+        if(buscaCarrinho(itens, id, aux)){
 
-        itens.add(item);
+          auxQuant = itens.get(aux).getQuant() + quant;
+          itens.get(aux).setQuant(auxQuant);
 
-        total += (i.getValor() * quant);
-    
-        return true;
+          subTotal = i.getValor() * auxQuant;
+          itens.get(aux).setSubTotal(subTotal);
+
+          total += i.getValor() * quant;
+          
+          return true;
+        }
+        else{
+          
+          subTotal = i.getValor() * quant;
+          
+          ItensCar item = new ItensCar(id, quant, subTotal);
+  
+          itens.add(item);
+  
+          total += (i.getValor() * quant);
+      
+          return true;
+        }
       }
     }
 
@@ -42,7 +57,7 @@ public class Carrinho {
 
   public void listarCarrinho(ArrayList<Produto> produtos){
 
-    System.out.println("\n\n==================");
+    System.out.println("\n\n=====================");
     System.out.println("Seu Carrinho\n\n");
 
     for(ItensCar i : itens){
@@ -61,7 +76,22 @@ public class Carrinho {
 
     System.out.println("\nTotal: R$" + getTotal());
 
-    System.out.println("==================");
+    System.out.println("=====================");
+  }
+
+  public boolean buscaCarrinho(ArrayList<ItensCar> itens, int id, int aux){
+
+    for(ItensCar i : itens){
+      
+      if(i.getIdProduto() == id){
+        
+        return true;
+      }
+      
+      aux++;
+    }
+
+    return false;
   }
 
   public double getTotal() {
