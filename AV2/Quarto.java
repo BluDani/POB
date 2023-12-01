@@ -41,7 +41,7 @@ public class Quarto{
     this.qtdeCamas = qtdeCamas;
   }
 
-  public boolean isTemBanheiro(){
+  public boolean getTemBanheiro(){
     return temBanheiro;
   }
   public void setTemBanheiro(boolean temBanheiro){
