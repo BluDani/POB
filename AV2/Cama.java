@@ -34,7 +34,7 @@ public class Cama{
     this.codigoCama = codigoCama;
   }
 
-  public boolean EhBeliche(){
+  public boolean getEhBeliche(){
     return ehBeliche;
   }
   public void setEhBeliche(boolean ehBeliche){
