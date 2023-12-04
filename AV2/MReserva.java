@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MReserva{
 
@@ -18,7 +20,7 @@ public class MReserva{
       System.out.println("4 - Listar");
       System.out.println("=======================");
 
-      System.out.println("Digite a opção desejada: ");
+      System.out.println("\nDigite a opção desejada: ");
       res = sc.nextInt();
 
       switch(res){
@@ -47,29 +49,77 @@ public class MReserva{
   }
 
   public boolean incluir(ArrayList<Reserva> reservas){
+    //id, idQuarto, idCama, idCliente,dataEntrada, dataSaida.
+    int id = 0;
+    int idQuarto = 0;
+    int idCama = 0;
+    int idCliente = 0;
+    String dataEntrada = "";
+    String dataSaida = "";
+    boolean validar = false;
 
     Scanner sc = new Scanner(System.in);
 
-    System.out.println("ID: ");
-    int id = sc.nextInt();
+    while(!validar){
+      
+      System.out.println("\nID: ");
+      id = sc.nextInt();
+
+      validar = validaId(id);
+    }
+
+    validar = false;
+
+    while(!validar){
+
+      System.out.println("\nID Quarto: ");
+      idQuarto = sc.nextInt();
+
+      validar = validaId(idQuarto);
+    }
+
+    validar = false;
+
+    while(!validar){
+
+      System.out.println("\nID Cama: ");
+      idCama = sc.nextInt();
+
+      validar = validaId(idCama);
+    }
+
+    validar = false;
+
+    while(!validar){
+
+      System.out.println("\nID Cliente: ");
+      idCliente = sc.nextInt();
+      sc.nextLine();
+
+      validar = validaId(idCliente);
+    }
+
+    validar = false;
+
+    while(!validar){
+
+      System.out.println("\nData Entrada: ");
+      dataEntrada = sc.next();
+      sc.nextLine();
+
+      validaData(dataEntrada);
+    }
+
+    validar = false;
+
+    while(!validar){
+
+      System.out.println("\nData Saida: ");
+      dataSaida = sc.next();
+
+      validaData(dataSaida);
+    }
     
-    System.out.println("ID Quarto: ");
-    int idQuarto = sc.nextInt();
-
-    System.out.println("ID Cama: ");
-    int idCama = sc.nextInt();
-
-    System.out.println("ID Cliente: ");
-    int idCliente = sc.nextInt();
-    sc.nextLine();
-
-    System.out.println("Data Entrada: ");
-    String dataEntrada = sc.next();
-    sc.nextLine();
-
-    System.out.println("Data Saida: ");
-    String dataSaida = sc.next();
-
     Reserva reserva = new Reserva(id, idQuarto, idCama, idCliente, dataEntrada, dataSaida);
 
     reservas.add(reserva);
@@ -81,7 +131,7 @@ public class MReserva{
 
     Scanner sc = new Scanner(System.in);
 
-    System.out.println("Digite o ID: ");
+    System.out.println("\nDigite o ID: ");
     int id = sc.nextInt();
 
     for(Reserva i : reservas){
@@ -92,15 +142,23 @@ public class MReserva{
         return true;
       }
     }
-    
+
+    System.out.println("\nReserva não encontrada");
     return false;
   }
 
   public boolean alterar(ArrayList<Reserva> reservas){
 
+    int idQuarto = 0;
+    int idCama = 0;
+    int idCliente = 0;
+    String dataEntrada = "";
+    String dataSaida = "";
+    boolean validar = false;
+    
     Scanner sc = new Scanner(System.in);
 
-    System.out.println("Digite o ID: ");
+    System.out.println("\nDigite o ID: ");
     int id = sc.nextInt();
     sc.nextLine();
 
@@ -108,22 +166,55 @@ public class MReserva{
 
       if(id == i.getId()){
 
-        System.out.println("ID Quarto: ");
-        int idQuarto = sc.nextInt();
+        while(!validar){
 
-        System.out.println("ID Cama: ");
-        int idCama = sc.nextInt();
+          System.out.println("\nID Quarto: ");
+          idQuarto = sc.nextInt();
 
-        System.out.println("ID Cliente: ");
-        int idCliente = sc.nextInt();
-        sc.nextLine();
+          validar = validaId(idQuarto);
+        }
 
-        System.out.println("Data Entrada: ");
-        String dataEntrada = sc.next();
-        sc.nextLine();
+        validar = false;
 
-        System.out.println("Data Saida: ");
-        String dataSaida = sc.next();
+        while(!validar){
+
+          System.out.println("\nID Cama: ");
+          idCama = sc.nextInt();
+
+          validar = validaId(idCama);
+        }
+
+        validar = false;
+
+        while(!validar){
+
+          System.out.println("\nID Cliente: ");
+          idCliente = sc.nextInt();
+          sc.nextLine();
+
+          validar = validaId(idCliente);
+        }
+
+        validar = false;
+
+        while(!validar){
+
+          System.out.println("\nData Entrada: ");
+          dataEntrada = sc.next();
+          sc.nextLine();
+
+          validaData(dataEntrada);
+        }
+
+        validar = false;
+
+        while(!validar){
+
+          System.out.println("\nData Saida: ");
+          dataSaida = sc.next();
+
+          validaData(dataSaida);
+        }
 
         i.setIdQuarto(idQuarto);
         i.setIdCama(idCama);
@@ -155,5 +246,32 @@ public class MReserva{
     }
 
     System.out.println("===========================");
+  }
+
+  public boolean validaId(int id){
+
+    if(id > 0){
+
+      return true;
+    }
+    else{
+
+      System.out.println("\nID inválido");
+      return false;
+    }
+  }
+
+  public boolean validaData(String data){
+
+    Pattern pattern = Pattern.compile("^[0-3][0-9]/[0-1][1-9]/[0-9]{4}$", Pattern.CASE_INSENSITIVE);
+    Matcher matcher = pattern.matcher(data);
+    boolean matchFound = matcher.find();
+
+    if(!matchFound){
+
+      System.out.println("\nData inválida");
+    }
+
+    return matchFound;
   }
 }
